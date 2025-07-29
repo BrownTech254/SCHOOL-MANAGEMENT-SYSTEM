@@ -1,0 +1,14 @@
+<div class="form-group" id="course-select">
+ 	<label for="course">Course</label>
+ 	<select name='course' id='course' class="form-control"
+ 	hx-get="{% url 'get_levels'%}"
+ 	hx-target='#level-select'
+ 	hx-trigger='change'>
+ 	<option value="">Select Course</option>
+ 	{% for course in courses %}
+ 	<option value="{{course.id}}">{{course.name}}</option>
+ 	{% endfor %}
+
+
+ 	</select>
+</div>

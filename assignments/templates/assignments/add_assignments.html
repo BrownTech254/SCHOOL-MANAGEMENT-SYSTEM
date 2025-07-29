@@ -1,0 +1,109 @@
+{% extends 'Dashboard/base_dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- begin container-fluid -->
+<div class="container-fluid">
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Add assignments
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Assignments
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Form Layouts</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    <!-- end row -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Default</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="." method="POST" enctype="multipart/form-data">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="col-md-12">
+                            <div class="alert border-0 alert-{{ message.tags }} bg-{{ message.tags }} m-b-30 alert-dismissible fade show border-radius-none" role="alert">
+                                <strong>{{ message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <i class="ti ti-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% csrf_token %}
+                        <div class="form-group" id="course-select">
+                            <label for="department">Department</label>
+                            <select name='department' id='department' class="form-control" hx-get="{% url 'get_courses' %}" hx-target='#course-select' hx-trigger='change'>
+                                <option value="">Select Department</option>
+                                {% for department in departments %}
+                                <option value="{{department.id}}">{{department.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group" id="course-select">
+                            <select class="form-control" disabled>
+                                <option value="">Select Department First</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="level-select">
+                            <select class="form-control" disabled>
+                                <option value="">Select Course First</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="unit-select">
+                            <select class="form-control" disabled>
+                                <option value="">Select level First</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Title</label>
+                            {{form.title}}
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Instruction</label>
+                            {{form.instruction}}
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Attachment</label>
+                            {{form.attachment}}
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Due date</label>
+                            {{form.due_date}}
+                        </div>
+                    
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <!-- end row -->
+</div>
+<!-- end container-fluid -->
+{% endblock %}

@@ -1,0 +1,447 @@
+{% extends 'Dashboard/base_dashboard.html' %}
+<!-- inheriting base file styles-->
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- begin container-fluid -->
+<div class="container-fluid">
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Complete Your Profile</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'home2' %}"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Profiles
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Complete Your Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    <!-- Notification -->
+    <div class="row">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="col-md-12">
+            <div class="alert border-0 alert-{{ message.tags }} bg-{{ message.tags }} m-b-30 alert-dismissible fade show border-radius-none" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="ti ti-close"></i>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <!-- end row -->
+    <!-- begin row -->
+    <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <div class="card-heading">
+                            <h4 class="card-title">Complete Your Profile</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="accordionfillborderradius">
+                            <div class="mb-2 acd-group">
+                                <div class="card-header border-radius-10 bg-primary">
+                                    <h5 class="mb-0">
+                                        <a href="#collapse5-1" class="btn-block text-white text-left acd-heading" data-toggle="collapse">1. Personal Data</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse5-1" class="collapse show" data-parent="#accordionfillborderradius">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="firstName">Username</label>
+                                                <input type="text" class="form-control" name="username" id="firstName" value="{{personal_data.lecturer.user.first_name}}" placeholder="First Name" readonly>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="firstName">First Name</label>
+                                                {{personal_form.first_name|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="lastName">Last Name</label>
+                                                {{personal_form.last_name|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="emailInput">Email</label>
+                                            {{personal_form.email|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="passportImage">Passport Photo</label>
+                                            {{personal_form.passport_image|as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="nationalId">National ID</label>
+                                                {{personal_form.national_id|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="hudumaNumber">Huduma Number</label>
+                                                {{personal_form.huduma_number|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dob">Date of Birth</label>
+                                            {{personal_form.date_of_birth|as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="gender">Gender</label>
+                                                {{personal_form.gender|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="maritalStatus">Marital Status</label>
+                                                {{personal_form.marital_status|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spouseName">Name of Spouse</label>
+                                            {{personal_form.name_of_spouse_if_married|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spouseOccupation">Occupation of Spouse</label>
+                                            {{personal_form.occupation_of_spouse_if_married|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="childrenCount">Number of Children</label>
+                                            {{personal_form.number_of_children_if_married|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spousePhone">Spouse's Phone Number</label>
+                                            {{personal_form.phone_number_of_spouse_if_married|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="impairment">Physical Impairment</label>
+                                            {{personal_form.physical_impairement|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="impairmentDesc">If Yes, Please Describe</label>
+                                            {{personal_form.if_physical_impairment|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nhif">NHIF Number</label>
+                                            {{personal_form.nhif_number |as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="religion">Religion</label>
+                                                {{personal_form.religion|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="nationality">Nationality</label>
+                                                {{personal_form.nationality|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone Number</label>
+                                            {{personal_form.phone_number|as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="postalBox">Postal Box</label>
+                                                {{personal_form.postal_box|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="postalCode">Postal Code</label>
+                                                {{personal_form.postal_code|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="postalTown">Postal Town</label>
+                                                {{personal_form.postal_town|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 acd-group">
+                                <div class="card-header border-radius-10 bg-primary">
+                                    <h5 class="mb-0">
+                                        <a href="#collapse5-2" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">2. Family Information</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse5-2" class="collapse" data-parent="#accordionfillborderradius">
+                                    <div class="card-body">
+                                        <h5 class="mt-3">Father's Information</h5>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="fatherFirstName">Father's First Name</label>
+                                                {{family_form.father_first_name|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="fatherLastName">Father's Last Name</label>
+                                                {{family_form.father_last_name|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="fatherStatus">Father's Status</label>
+                                                {{family_form.father_status|as_crispy_field}}
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="fatherOccupation">Father's Occupation</label>
+                                                {{family_form.father_occupation|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fatherDOB">Father's Date of Birth</label>
+                                            {{family_form.father_date_of_birth|as_crispy_field}}
+                                        </div>
+                                        <hr class="my-4">
+                                        <h5 class="mt-3">Mother's Information</h5>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="motherFirstName">Mother's First Name</label>
+                                                {{family_form.mother_first_name|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="motherLastName">Mother's Last Name</label>
+                                                {{family_form.mother_last_name|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="motherStatus">Mother's Status</label>
+                                                {{family_form.mother_status|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="motherOccupation">Mother's Occupation</label>
+                                                {{family_form.mother_occupation|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="motherDOB">Mother's Date of Birth</label>
+                                            {{family_form.mother_date_of_birth|as_crispy_field}}
+                                        </div>
+                                        <hr class="my-4">
+                                        <div class="form-group">
+                                            <label for="siblingsCount">Number of Brothers and Sisters</label>
+                                            {{family_form.number_of_brothers_and_sisters|as_crispy_field}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 acd-group">
+                                <div class="card-header border-radius-10 bg-primary">
+                                    <h5 class="mb-0">
+                                        <a href="#collapse5-3" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">2. Residence</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse5-3" class="collapse" data-parent="#accordionfillborderradius">
+                                    <div class="card-body">
+                                        <h5 class="mt-3">Residence Information</h5>
+                                        <div class="form-group">
+                                            <label for="placeOfBirth">Place of Birth</label>
+                                            {{residence_form.place_of_birth|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="placeOfPermanentResidence">Place of Permanent Residence</label>
+                                            {{residence_form.place_of_permanent_residence|as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="nearestTown">Nearest Town</label>
+                                                {{residence_form.nearest_town|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="location">Location</label>
+                                                {{residence_form.location|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="chiefName">Name of Chief</label>
+                                            {{residence_form.name_of_chief|as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="county">County</label>
+                                                {{residence_form.county|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="subCounty">Sub-County</label>
+                                                {{residence_form.sub_county|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="constituency">Constituency</label>
+                                                {{residence_form.constituency|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="policeStation">Nearest Police Station</label>
+                                                {{residence_form.nearest_police_station|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 acd-group">
+                                <div class="card-header border-radius-10 bg-primary">
+                                    <h5 class="mb-0">
+                                        <a href="#collapse5-4" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">2. Emmergency Contact Information</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse5-4" class="collapse" data-parent="#accordionfillborderradius">
+                                    <div class="card-body">
+                                        <h5 class="mt-3">Emergency Contact Person A</h5>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="firstNameA">First Name</label>
+                                                {{emergency_form.first_name_a|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="lastNameA">Last Name</label>
+                                                 {{emergency_form.last_name_a|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="emailA">Email</label>
+                                                 {{emergency_form.email_a|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="phoneNumberA">Phone Number</label>
+                                                 {{emergency_form.phone_number_a|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="postalBoxA">Postal Box</label>
+                                                 {{emergency_form.postal_box_a|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="postalCodeA">Postal Code</label>
+                                                 {{emergency_form.postal_code_a|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="postalTownA">Postal Town</label>
+                                                 {{emergency_form.postal_town_a|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="relationshipA">Relationship</label>
+                                            {{emergency_form.relationship_a|as_crispy_field}}
+                                        </div>
+                                        <hr class="my-4">
+                                        <h5 class="mt-3">Emergency Contact Person B</h5>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="firstNameB">First Name</label>
+                                                 {{emergency_form.first_name_b|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="lastNameB">Last Name</label>
+                                                 {{emergency_form.last_name_b|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="emailB">Email</label>
+                                                 {{emergency_form.email_b|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="phoneNumberB">Phone Number</label>
+                                                 {{emergency_form.phone_number_b|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="postalBoxB">Postal Box</label>
+                                                 {{emergency_form.postal_box_b|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="postalCodeB">Postal Code</label>
+                                                 {{emergency_form.postal_code_b|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="postalTownB">Postal Town</label>
+                                                 {{emergency_form.postal_town_b|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="relationshipB">Relationship</label>
+                                             {{emergency_form.relationship_b|as_crispy_field}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="acd-group border-bottom-0">
+                                <div class="card-header border-radius-10 bg-primary">
+                                    <h5 class="mb-0">
+                                        <a href="#collapse5-5" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">3. Academic Background</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse5-5" class="collapse" data-parent="#accordionfillborderradius">
+                                    <div class="card-body">
+                                        <h5 class="mt-3">Secondary School Information</h5>
+                                        <div class="form-group">
+                                            <label for="secondarySchoolName">Name of Secondary School</label>
+                                            {{academic_form.name_of_secondary_school|as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="secondaryIndex">Index Number</label>
+                                              {{academic_form.index_number_of_secondary_school|as_crispy_field}} 
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="secondaryCompletion">Year of Completion</label>
+                                              {{academic_form.year_of_completion_of_secondary_school|as_crispy_field}}  
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        <h5 class="mt-3">Primary School Information</h5>
+                                        <div class="form-group">
+                                            <label for="primarySchoolName">Name of Primary School</label>
+                                            {{academic_form.name_of_primary_school|as_crispy_field}}
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="primaryIndex">Index Number</label>
+                                                {{academic_form.index_number_of_primary_school|as_crispy_field}}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="primaryCompletion">Year of Completion</label>
+                                              {{academic_form.year_of_completion_of_primary_school|as_crispy_field}}  
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kcpeResults">KCPE Results</label>
+                                            {{academic_form.kcpe_results|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="otherInstitutions">Any Other Institutions Attended and Qualifications Attained</label>
+                                            {{academic_form.any_other_institution_atttended_and_qualifications_attained|as_crispy_field}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="submit details">
+    </form>
+    <!-- end row -->
+</div>
+<!-- end container-fluid -->
+{% endblock %}

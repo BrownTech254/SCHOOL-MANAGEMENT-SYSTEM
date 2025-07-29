@@ -1,0 +1,590 @@
+{% extends 'Dashboard/base_dashboard.html' %}<!-- inheriting base file styles-->
+{% load static %}
+{% block content %}
+<!-- begin container-fluid -->
+<div class="container-fluid">
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Complete Your Profile</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'home2' %}"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Profiles
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Complete Your Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    
+
+    <!-- Notification -->
+    
+    <div class="row">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="col-md-12">
+            <div class="alert border-0 alert-{{ message.tags }} bg-{{ message.tags }} m-b-30 alert-dismissible fade show border-radius-none" role="alert">
+                <strong>{{ message }}</strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="ti ti-close"></i>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <!-- end row -->
+    <!-- begin row -->
+    <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="row">
+        
+
+        <div class="col-12 col-lg-12">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Complete Your Profile</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="accordionfillborderradius">
+                        <div class="mb-2 acd-group">
+                            <div class="card-header border-radius-10 bg-primary">
+                                <h5 class="mb-0">
+                                    <a href="#collapse5-1" class="btn-block text-white text-left acd-heading" data-toggle="collapse">1. Personal Data</a>
+                                </h5>
+                            </div>
+                            <div id="collapse5-1" class="collapse show" data-parent="#accordionfillborderradius">
+                                <div class="card-body">
+                                    
+    
+    
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Username</label>
+                                    <input type="text" class="form-control" name="username" id="firstName" value="{{personal_data.student.user.username}}" placeholder="First Name" readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" name="first_name" id="firstName"  placeholder="First Name">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" class="form-control"   name="last_name" id="lastName" placeholder="Last Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailInput">Email</label>
+                                <input type="email" class="form-control" name="email" id="emailInput" placeholder="Email">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Your Course</label>
+                                    <input type="text" class="form-control" name="username" id="firstName" value="{{student_course}}" placeholder="First Name" readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Select Level</label>
+                                    <select name="level_id" class="form-control">
+                                        <option>---select level---</option>
+                                        {% for level in student_course_levels %}
+                                        <option value="{{level.id}}">
+                                            {{level.name}}---{{level.course.name}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passportImage">Passport Photo</label>
+                                <input type="file" class="form-control" name="passport_image" id="passportImage">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="nationalId">National ID</label>
+                                    <input type="text" class="form-control" name="national_id" id="nationalId">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="hudumaNumber">Huduma Number</label>
+                                    <input type="text" class="form-control" name="huduma_number" id="hudumaNumber">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" class="form-control" name="date_of_birth" id="dob">
+                            </div>
+
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-control" name="gender" id="gender">
+                                        {% for value, label in GENDER_CHOICES%}
+                                        <option {% if personal_data.gender == value %} selected {% endif %} value="{{value}}">{{label}}</option>
+                                        {% endfor %}
+                                        
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="maritalStatus">Marital Status</label>
+                                    <select class="form-control" name="marital_status" id="maritalStatus">
+                                        {% for value, label in MARITAL_CHOICES %}
+                                        <option {% if personal_data.marital_status == value %} selected {% endif %} value="{{value}}">{{label}}</option>
+                                        {% endfor %}
+                                        
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="spouseFields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="spouseName">Name of Spouse</label>
+                                    <input type="text" class="form-control" name="name_of_spouse_if_married" id="spouseName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="spouseOccupation">Occupation of Spouse</label>
+                                    <input type="text" class="form-control" name="occupation_of_spouse_if_married" id="spouseOccupation">
+                                </div>
+                                <div class="form-group">
+                                    <label for="childrenCount">Number of Children</label>
+                                    <input type="number" class="form-control" name="number_of_children_if_married" id="childrenCount">
+                                </div>
+                                <div class="form-group">
+                                    <label for="spousePhone">Spouse's Phone Number</label>
+                                    <input type="tel" class="form-control" name="phone_number_of_spouse_if_married" id="spousePhone">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="impairment">Physical Impairment</label>
+                                <select class="form-control" name="physical_impairement" id="impairment">
+                                    {% for value, label in Yes_or_No_CHOICES %}
+                                    <option {% if personal_data.physical_impairement == value %} selected {% endif %} value="{{ value }}">{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="impairmentDetails" style="display: none;">
+                                <label for="impairmentDesc">If Yes, Please Describe</label>
+                                <textarea class="form-control" name="if_physical_impairment" id="impairmentDesc" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nhif">NHIF Number</label>
+                                <input type="text" class="form-control" name="nhif_number" id="nhif">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="religion">Religion</label>
+                                    <select class="form-control" name="religion" id="religion">
+                                        {% for value, label in RELIGION_CHOICES %}
+                                        <option {% if personal_data.religion == value %} selected {% endif %} value="{{ value }}">{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="nationality">Nationality</label>
+                                    <select class="form-control" name="nationality" id="nationality">
+                                        {% for value, label in NATIONALITY_CHOICES%}
+                                        <option {% if personal_data.nationality == value %} selected {% endif %} value="{{value}}">{{label}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" class="form-control" name="phone_number" id="phone">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="postalBox">Postal Box</label>
+                                    <input type="text" class="form-control" name="postal_box" id="postalBox">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="postalCode">Postal Code</label>
+                                    <input type="text" class="form-control" name="postal_code" id="postalCode">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="postalTown">Postal Town</label>
+                                    <input type="text" class="form-control" name="postal_town" id="postalTown">
+                                </div>
+                            </div>
+
+    
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2 acd-group">
+                            <div class="card-header border-radius-10 bg-primary">
+                                <h5 class="mb-0">
+                                    <a href="#collapse5-2" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">2. Family Information</a>
+                                </h5>
+                            </div>
+                            <div id="collapse5-2" class="collapse" data-parent="#accordionfillborderradius">
+                                <div class="card-body">
+                                    
+    
+
+    <h5 class="mt-3">Father's Information</h5>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="fatherFirstName">Father's First Name</label>
+            <input type="text" class="form-control" name="father_first_name" id="fatherFirstName" placeholder="First Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="fatherLastName">Father's Last Name</label>
+            <input type="text" class="form-control" name="father_last_name" id="fatherLastName" placeholder="Last Name">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="fatherStatus">Father's Status</label>
+            <select class="form-control" name="father_status" id="fatherStatus">
+                {% for value, label in STATUS %}
+                <option  {% if family_information.father_status == value %} selected {% endif %}value="{{value}}">{{label}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="fatherOccupation">Father's Occupation</label>
+            <input type="text" class="form-control" name="father_occupation" id="fatherOccupation" placeholder="Occupation">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="fatherDOB">Father's Date of Birth</label>
+        <input type="date" class="form-control" name="father_date_of_birth" id="fatherDOB">
+    </div>
+
+    <hr class="my-4">
+
+    <h5 class="mt-3">Mother's Information</h5>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="motherFirstName">Mother's First Name</label>
+            <input type="text" class="form-control" name="mother_first_name" id="motherFirstName" placeholder="First Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="motherLastName">Mother's Last Name</label>
+            <input type="text" class="form-control" name="mother_last_name" id="motherLastName" placeholder="Last Name">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="motherStatus">Mother's Status</label>
+            <select class="form-control" name="mother_status" id="motherStatus">
+                {% for value, label in STATUS %}
+                <option {% if family_information.mother_status == value %} selected {% endif %} value="{{value}}">{{label}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="motherOccupation">Mother's Occupation</label>
+            <input type="text" class="form-control" name="mother_occupation" id="motherOccupation" placeholder="Occupation">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="motherDOB">Mother's Date of Birth</label>
+        <input type="date" class="form-control" name="mother_date_of_birth" id="motherDOB">
+    </div>
+
+    <hr class="my-4">
+
+    <div class="form-group">
+        <label for="siblingsCount">Number of Brothers and Sisters</label>
+        <input type="number" class="form-control" name="number_of_brothers_and_sisters" id="siblingsCount" min="0">
+    </div>
+
+    
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2 acd-group">
+                            <div class="card-header border-radius-10 bg-primary">
+                                <h5 class="mb-0">
+                                    <a href="#collapse5-3" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">2. Residence</a>
+                                </h5>
+                            </div>
+                            <div id="collapse5-3" class="collapse" data-parent="#accordionfillborderradius">
+                                <div class="card-body">
+                                    
+    
+
+    <h5 class="mt-3">Residence Information</h5>
+
+    <div class="form-group">
+        <label for="placeOfBirth">Place of Birth</label>
+        <input type="text" class="form-control" name="place_of_birth" id="placeOfBirth" placeholder="e.g., Kisumu">
+    </div>
+
+    <div class="form-group">
+        <label for="placeOfPermanentResidence">Place of Permanent Residence</label>
+        <input type="text" class="form-control" name="place_of_permanent_residence" id="placeOfPermanentResidence" placeholder="e.g., Kisii">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="nearestTown">Nearest Town</label>
+            <input type="text" class="form-control" name="nearest_town" id="nearestTown">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" name="location" id="location">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="chiefName">Name of Chief</label>
+        <input type="text" class="form-control" name="name_of_chief" id="chiefName">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="county">County</label>
+            <select class="form-control" name="county" id="county">
+                {% for value,label in COUNTY_CHOICES %}
+                <option {% if residence.county == value %} selected {% endif %} value="{{value}}">{{label}}</option>
+                {% endfor %}
+                <!-- Add all counties in COUNTY_CHOICES -->
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="subCounty">Sub-County</label>
+            <input type="text" class="form-control" name="sub_county" id="subCounty">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="constituency">Constituency</label>
+            <input type="text" class="form-control" name="constituency" id="constituency">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="policeStation">Nearest Police Station</label>
+            <input type="text" class="form-control" name="nearest_police_station" id="policeStation">
+        </div>
+    </div>
+
+    
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2 acd-group">
+                            <div class="card-header border-radius-10 bg-primary">
+                                <h5 class="mb-0">
+                                    <a href="#collapse5-4" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">2. Emmergency Contact Information</a>
+                                </h5>
+                            </div>
+                            <div id="collapse5-4" class="collapse" data-parent="#accordionfillborderradius">
+                                <div class="card-body">
+                                    
+    
+
+    <h5 class="mt-3">Emergency Contact Person A</h5>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="firstNameA">First Name</label>
+            <input type="text" class="form-control" name="first_name_a" id="firstNameA">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="lastNameA">Last Name</label>
+            <input type="text" class="form-control" name="last_name_a" id="lastNameA">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="emailA">Email</label>
+            <input type="email" class="form-control" name="email_a" id="emailA">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="phoneNumberA">Phone Number</label>
+            <input type="tel" class="form-control" name="phone_number_a" id="phoneNumberA">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="postalBoxA">Postal Box</label>
+            <input type="text" class="form-control" name="postal_box_a" id="postalBoxA">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="postalCodeA">Postal Code</label>
+            <input type="text" class="form-control" name="postal_code_a" id="postalCodeA">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="postalTownA">Postal Town</label>
+            <input type="text" class="form-control" name="postal_town_a" id="postalTownA">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="relationshipA">Relationship</label>
+        <input type="text" class="form-control" name="relationship_a" id="relationshipA" placeholder="e.g., Parent, Guardian, Sibling">
+    </div>
+
+    <hr class="my-4">
+
+    <h5 class="mt-3">Emergency Contact Person B</h5>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="firstNameB">First Name</label>
+            <input type="text" class="form-control" name="first_name_b" id="firstNameB">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="lastNameB">Last Name</label>
+            <input type="text" class="form-control" name="last_name_b" id="lastNameB">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="emailB">Email</label>
+            <input type="email" class="form-control" name="email_b" id="emailB">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="phoneNumberB">Phone Number</label>
+            <input type="tel" class="form-control" name="phone_number_b" id="phoneNumberB">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="postalBoxB">Postal Box</label>
+            <input type="text" class="form-control" name="postal_box_b" id="postalBoxB">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="postalCodeB">Postal Code</label>
+            <input type="text" class="form-control" name="postal_code_b" id="postalCodeB">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="postalTownB">Postal Town</label>
+            <input type="text" class="form-control" name="postal_town_b" id="postalTownB">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="relationshipB">Relationship</label>
+        <input type="text" class="form-control" name="relationship_b" id="relationshipB" placeholder="e.g., Uncle, Aunt, Friend">
+    </div>
+
+    
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="acd-group border-bottom-0">
+                            <div class="card-header border-radius-10 bg-primary">
+                                <h5 class="mb-0">
+                                    <a href="#collapse5-5" class="btn-block text-white text-left acd-heading collapsed" data-toggle="collapse">3. Academic Background</a>
+                                </h5>
+                            </div>
+                            <div id="collapse5-5" class="collapse" data-parent="#accordionfillborderradius">
+                                <div class="card-body">
+                                    
+    
+
+    <h5 class="mt-3">Secondary School Information</h5>
+
+    <div class="form-group">
+        <label for="secondarySchoolName">Name of Secondary School</label>
+        <input type="text" class="form-control" name="name_of_secondary_school" id="secondarySchoolName">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="secondaryIndex">Index Number</label>
+            <input type="number" class="form-control" name="index_number_of_secondary_school" id="secondaryIndex">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="secondaryCompletion">Year of Completion</label>
+            <input type="date" class="form-control" name="year_of_completion_of_secondary_school" id="secondaryCompletion">
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h5 class="mt-3">Primary School Information</h5>
+
+    <div class="form-group">
+        <label for="primarySchoolName">Name of Primary School</label>
+        <input type="text" class="form-control" name="name_of_primary_school" id="primarySchoolName">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="primaryIndex">Index Number</label>
+            <input type="number" class="form-control" name="index_number_of_primary_school" id="primaryIndex">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="primaryCompletion">Year of Completion</label>
+            <input type="date" class="form-control" name="year_of_completion_of_primary_school" id="primaryCompletion">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="kcpeResults">KCPE Results</label>
+        <textarea class="form-control" name="kcpe_results" id="kcpeResults" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="otherInstitutions">Any Other Institutions Attended and Qualifications Attained</label>
+        <textarea class="form-control" name="any_other_institution_atttended_and_qualifications_attained" id="otherInstitutions" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Submit Your Details" class="btn btn-primary float-right">
+    </div>
+
+    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    </form>
+    <!-- end row -->
+</div>
+<!-- end container-fluid -->
+
+{% endblock %}

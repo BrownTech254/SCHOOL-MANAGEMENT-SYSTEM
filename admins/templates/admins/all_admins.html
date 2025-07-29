@@ -1,0 +1,96 @@
+{% extends 'Dashboard/base_dashboard.html' %}
+<!-- inheriting base file styles-->
+{% load static %}
+{% block content %}
+<!-- begin container-fluid -->
+<div class="container-fluid">
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Admins</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Dashboard
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Admins</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxl-9 m-b-30">
+            <div class="card card-statistics dating-contant h-100 mb-0">
+                <div class="card-header">
+                    <h4 class="card-title">All Admins</h4>
+                </div>
+                <div class="card-body pt-2 scrollbar scroll_dark" style="height: 300px">
+                    <div class="table-responsive">
+                        <table id="datatable-buttons" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">#</th>
+                                    <th class="border-top-0">Name</th>
+                                    <th class="border-top-0">Reg No.</th>
+                                    <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Joined Date</th>
+                                    <th class="border-top-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-muted">
+                            	{% for admin in admins %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                                        <div class="bg-img">
+                                        	{% if admin.personal_data.passport_image %}
+                                            <img class="img-fluid" src="{{admin.personal_data.passport_image.url}}" alt="user">
+                                        	{% else %}
+                                        	<img class="img-fluid" src="{% static 'dashboard/img/avatar-1577909_640.png' %}" alt="user">
+                                        	{% endif %}
+                                        </div>
+                                        {% if admin.user.first_name %}
+                                        <p>{{admin.user.first_name}} {{admin.user.last_name}}</p>
+                                        {% else %}
+                                        <p>{{admin.user.username}} </p>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{admin.registration_number}}</td>
+                                    <td>
+                                    	{% if admin.is_registered %}
+                                        <label class="badge mb-0 badge-success-inverse">Registered</label>
+                                        {% else %}
+                                        <label class="badge mb-0 badge-warning-inverse">Pending</label>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{admin.user.date_joined}}</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                        <a href="javascript:void(0)"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+<!-- end container-fluid -->
+{% endblock %}

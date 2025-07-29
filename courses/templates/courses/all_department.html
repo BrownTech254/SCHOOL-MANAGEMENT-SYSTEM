@@ -1,0 +1,89 @@
+{% extends 'Dashboard/base_dashboard.html' %}
+<!-- inheriting base file styles-->
+{% load static %}
+{% block content %}
+<!-- begin container-fluid -->
+<div class="container-fluid">
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Departments</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Dashboard
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Departments</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="col-md-12">
+        <div class="alert border-0 alert-{{ message.tags }} bg-{{ message.tags }} m-b-30 alert-dismissible fade show border-radius-none" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="ti ti-close"></i>
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-xxl-9 m-b-30">
+            <div class="card card-statistics dating-contant h-100 mb-0">
+                <div class="card-header">
+                    <h4 class="card-title">All Departments</h4>
+                </div>
+                <div class="card-body pt-2 scrollbar scroll_dark" style="height: 300px">
+                    <div class="table-responsive">
+                        <table id="datatable-buttons" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">#</th>
+                                    <th class="border-top-0">Name</th>
+                                    <th class="border-top-0">Dep Code.</th>
+                                    <th class="border-top-0">Created by</th>
+                                    <th class="border-top-0">Created at</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-muted">
+                                {% for department in departments %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                    </div>
+                    <p>{{department.name}}
+                        </td>
+                        <td>{{department.department_code}}</td>
+                        <td>{{department.created_at}}</td>
+                        <td>{{department.created_by}}</td>
+                        <td>
+                            <a href="{% url 'dept_edit' department.id %}" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                            <a href="{% url 'dept_delete' department.id %}"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+</div>
+<!-- end container-fluid -->
+{% endblock %}

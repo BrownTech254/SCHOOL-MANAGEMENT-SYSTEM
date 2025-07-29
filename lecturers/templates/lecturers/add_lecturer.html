@@ -1,0 +1,90 @@
+{% extends 'Dashboard/base_dashboard.html' %}
+{% load static %}
+{% block content %}
+<!-- begin container-fluid -->
+<div class="container-fluid">
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Form Layouts</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Forms
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Form Layouts</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    <!-- end row -->
+    <!-- begin row -->
+    <div class="row">
+    	<div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Default</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action='{% url "add_lecturer" %}' method="POST">
+                         {% if messages %}
+                    {% for message in messages %}
+                    <div class="col-md-12">
+                        <div class="alert border-0 alert-{{ message.tags }} bg-{{ message.tags }} m-b-30 alert-dismissible fade show border-radius-none" role="alert">
+                            <strong>{{ message }}</strong> 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <i class="ti ti-close"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                    	<div class="form-group">
+                            <label for="exampleInputPassword1">First Name</label>
+
+                            <input type="txt" class="form-control" id="exampleInputPassword1" placeholder="First Name" name='first_name'>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Last Name</label>
+                            <input type="txt" class="form-control" id="exampleInputPassword1" placeholder="Last Name" name='last_name'>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name='email_address'>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name='password'>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Confirm Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name='confirm_password'>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        
+    </div>
+    <!-- end row -->
+</div>
+<!-- end container-fluid -->
+{% endblock %}

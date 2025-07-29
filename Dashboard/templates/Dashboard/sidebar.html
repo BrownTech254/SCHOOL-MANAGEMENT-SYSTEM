@@ -1,0 +1,107 @@
+<div class="sidebar-nav scrollbar scroll_light">
+                        <ul class="metismenu " id="sidebarNav">
+                            <li class="nav-static-title">Main</li>
+                            {% if request.user.is_admin %}
+                             {% if request.user.admin.is_registered %}
+                            <li class="active">
+                                <a class="has-arrow" href="{% url 'home2' %}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Dashboard</span>
+                                    
+                                </a>
+                                
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-calendar"></i><span class="nav-title">Lecturers</span></a>
+                                <ul aria-expanded="false">
+                                    <li> <a href='{% url "add_lecturer" %}'>Add Lecturer</a> </li>
+                                    <li> <a href="{% url 'all_lecturers' %}">All Lecturers</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-calendar"></i><span class="nav-title">Students</span></a>
+                                <ul aria-expanded="false">
+                                    <li> <a href="{% url 'add_student' %}">Add Student</a> </li>
+                                    <li> <a href="{% url 'all_students' %}">All Students</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-calendar"></i><span class="nav-title">Admins</span></a>
+                                <ul aria-expanded="false">
+                                    <li> <a href='{% url "add_admin" %}'>Add Admin</a> </li>
+                                    <li> <a href="{% url 'all_admins' %}">All admins</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-calendar"></i><span class="nav-title">Departments</span></a>
+                                <ul aria-expanded="false">
+                                    <li> <a href='{% url "add_department" %}'>Add Department</a> </li>
+                                    <li> <a href="{% url 'all_departments' %}">All Departments</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-calendar"></i><span class="nav-title">Courses</span></a>
+                                <ul aria-expanded="false">
+                                    <li> <a href="{% url 'add_courses' %}">Add Courses</a> </li>
+                                    <li> <a href='{% url "all_courses" %}'>All Courses</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-calendar"></i><span class="nav-title">Assignments</span></a>
+                                <ul aria-expanded="false">
+                                    <li> <a href='{% url "add_assignments" %}'>Add Assignment</a> </li>
+                                    <li> <a href='{% url "all_assignments" %}'>All Assignments</a> </li>
+                                    
+                                </ul>
+                            </li>
+
+                            {% else %}
+                            <li class="active">
+                                <a class="has-arrow" href="{% url 'admin_complete_profile' %}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Complete Profile</span>
+                                    
+                                </a>
+                                
+                            </li>
+                            {% endif %}
+
+                            {% elif request.user.is_teacher %}
+                            {% if request.user.lecturer.is_registered %}
+                            <li class="active">
+                                <a class="has-arrow" href="{% url 'teacher_dashboard' %}"aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Dashboard</span>
+                                    
+                                </a>
+                                
+                            </li>
+                            {% else %}
+                            <li class="active">
+                                <a class="has-arrow" href="{% url 'lecturer_complete_profile' %}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Complete Profile</span>
+                                    
+                                </a>
+                                
+                            </li>
+                            {% endif %}
+                            
+                            {% elif request.user.is_student %}
+                            {% if request.user.student.is_registered %}
+                            <li class="active">
+                                <a class="has-arrow" href="{% url 'student_dashboard' %}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Dashboard</span>
+                                    
+                                </a>
+                                
+                            </li>
+                            {% else %}
+                            <li class="active">
+                                <a class="has-arrow" href="{% url 'complete_profile' %}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Complete Profile</span>
+                                    
+                                </a>
+                                
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                            
+                        </ul>
+                    </div>

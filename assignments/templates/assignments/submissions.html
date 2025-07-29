@@ -1,0 +1,101 @@
+{% extends 'Dashboard/base_dashboard.html' %}
+<!-- inheriting base file styles-->
+{% load static %}
+{% block content %}
+<!-- begin container-fluid -->
+<div class="container-fluid">
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Submissions For {{ assignment.title }}</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Submissions
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Submissions For {{ assignment.title }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="col-md-12">
+        <div class="alert border-0 alert-{{ message.tags }} bg-{{ message.tags }} m-b-30 alert-dismissible fade show border-radius-none" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="ti ti-close"></i>
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <div class="card card-statistics dating-contant h-100 mb-0">
+                <div class="card-header">
+                    <h4 class="card-title">Submissionss</h4>
+                </div>
+                <div class="card-body pt-2 scrollbar scroll_dark" style="height: 300px">
+                    <div class="table-responsive">
+                        <table id="datatable-buttons" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">#</th>
+                                    <th class="border-top-0">Name</th>
+                                    <th class="border-top-0">Reg NO.</th>
+                                    <th class="border-top-0">File</th>
+                                    <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Score</th>
+                                    <th class="border-top-0">Grade</th>
+                                    <th class="border-top-0">Submitted At</th>
+                                    <th class="border-top-0">Update Score</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-muted">
+                                {% for assign in all_assignments %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                    </div>
+                    <p>{{assign.title}}
+                        </td>
+                        <td>{{assign.unit.name}}</td>
+                        <td>{{assign.unit.level.course.name}}</td>
+                        <td>{{assign.unit.level.name}}</td>
+                        <td><a class="btn btn-primary" href="{{assign.attachment.url}}">Download</a></td>
+                        <td>{{assign.due_date}}</td>
+                        {% if assign.is_active %}
+                        <td><span class="badge bg-success text-light">active</span></td>
+                        {% else %}
+                        <td><span class="badge bg-warning text-light">expired</span></td>
+                        {% endif %}
+                        <td>{{assign.created_by}}</td>
+                        <td>
+                            <a href="#" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                            <a href="#"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+</div>
+<!-- end container-fluid -->
+{% endblock %}
