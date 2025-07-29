@@ -27,6 +27,7 @@ class AssignmentSubmission(models.Model):
 	score = models.IntegerField(help_text='score in percentage(%)', null=True, blank=True)
 	grade = models.CharField(help_text='A, B, C, D, etc', null=True, blank=True)
 	is_graded = models.BooleanField(default=False)
+	submitted_at = models.DateTimeField(blank=True, null=True)
 	modified_at = models.DateTimeField(auto_now=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 

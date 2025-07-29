@@ -64,27 +64,48 @@
                                 </tr>
                             </thead>
                             <tbody class="text-muted">
-                                {% for assign in all_assignments %}
+                                {% for sub in submissions %}
                                 <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td>
                     </div>
-                    <p>{{assign.title}}
+                    {% if sub.student.user.get_full_name %}
+                    <p>{{sub.student.user.get_full_name}}</p>
+                    {% else %}
+                    <p>{{sub.student.user.username}}</p>
+                    {% endif %}
                         </td>
-                        <td>{{assign.unit.name}}</td>
-                        <td>{{assign.unit.level.course.name}}</td>
-                        <td>{{assign.unit.level.name}}</td>
-                        <td><a class="btn btn-primary" href="{{assign.attachment.url}}">Download</a></td>
-                        <td>{{assign.due_date}}</td>
-                        {% if assign.is_active %}
-                        <td><span class="badge bg-success text-light">active</span></td>
+                        <td>{{sub.student.registration_number}}</td>
+                        {% if sub.attachment %}
+                        <td><a class="btn btn-primary" href="{{sub.attachment.url}}">Download</a></td>
                         {% else %}
-                        <td><span class="badge bg-warning text-light">expired</span></td>
+                        <td>No File</td>
                         {% endif %}
-                        <td>{{assign.created_by}}</td>
+                        {% if sub.is_submitted %}
+                        <td><span class="badge bg-success text-light">Submitted</span></td>
+                        {% else %}
+                        <td><span class="badge bg-warning text-light">Pending</span></td>
+                        {% endif %}
+
+                        {% if sub.is_graded %}
+                        <td>{{sub.score}}</td>
+                        {% else %}
+                        <td>Not Graded</td>
+                        {% endif %}
+
+                        {% if sub.is_graded %}
+                        <td>{{sub.grade}}</td>
+                        {% else %}
+                        <td>Not Graded</td>
+                        {% endif %}
+
+                        {% if sub.is_submitted %}
+                        <td><span class="badge bg-success text-light">{{sub.submitted_at}}</span></td>
+                        {% else %}
+                        <td><span class="badge bg-warning text-light">Pending</span></td>
+                        {% endif %}
                         <td>
-                            <a href="#" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
-                            <a href="#"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                            <a href="#" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Update Score"></i></a>
                         </td>
                         </tr>
                         {% endfor %}
